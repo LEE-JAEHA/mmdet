@@ -8,7 +8,7 @@ model = dict(bbox_head=dict(num_classes=1))
 data = dict(samples_per_gpus=12, workers_per_gpu=4)
 # optimizer
 optimizer = dict(type='Adam', lr=0.02)
-optimizer_config = dict(grad_clip=30, norm_type=2)
+optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 # learning policy
 lr_config = dict(
     policy='step',
