@@ -5,9 +5,9 @@ _base_ = [
 ]
 
 model = dict(bbox_head=dict(num_classes=1))
-data = dict(samples_per_gpus=12, workers_per_gpu=4)
+data = dict(samples_per_gpus=16, workers_per_gpu=4)
 # optimizer
-optimizer = dict(type='Adam', lr=0.02)
+optimizer = dict(type='SGD', momentum=0.9, lr=0.01, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 # learning policy
 lr_config = dict(
@@ -15,5 +15,8 @@ lr_config = dict(
     warmup='linear',
     warmup_iters=500,
     warmup_ratio=0.001,
-    step=[180])
+    step=[120, 170, 200])
 total_epochs = 210
+
+evaluation = dict(interval=5, metric='bbox')
+checkpoint_config = dict(interval=5)
